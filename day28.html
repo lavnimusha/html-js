@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Video Speed Controller UI</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+        body{
+            background: url("https://www.theappylodge.com/wp-content/uploads/2018/05/OAK-TENN-ONLY-Early-Spring-Smokies-Morning-copy.jpg") fixed;
+            background-size: cover;
+            background-repeat: no-repeat; 
+        }
+        .main{
+            display: flex;
+            flex-direction: row;
+        }
+        .speed{
+            width:10%;
+            height:40vh;
+            background-color: grey;
+            border-radius: 50% 50% 50% 50% / 10% 10% 10% 10% ;
+            margin-left: 50px;
+
+        }
+        .speed-bar{
+            height: 60%;
+            border-radius: 50% 50% 50% 50% / 10% 10% 10% 10%;            
+            background-image: linear-gradient(lightpink, yellow); 
+            transition: 0.5s linear;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+        <video  class = "flex" width=50% height=50% controls>
+            <source src="sintel-short.mp4" type="video/mp4">
+            
+                Your browser does not support the video tag.
+        </video>
+        <div title="speed" class="speed">
+            <div title="speed" class="speed-bar">1x</div>
+        </div>
+        </div>
+        <script>
+        const video = document.querySelector('.flex');
+        const speed = document.querySelector('.speed');
+        const speedbar = document.querySelector('.speed-bar');
+        
+        speed.addEventListener('mousemove',function (e) {
+            const y = e.pageY - this.offsetTop;
+            const percent = y / this.offsetHeight;
+            const min = 0.4, max = 4;
+            const height = Math.round(percent * 100 ) + '%';
+            const playBackRate = percent * (max - min) + min;
+            speedbar.textContent = playBackRate.toFixed(2)+'x';
+            speedbar.style.height = height;
+            video.playbackRate = playBackRate;
+            console.log(e);
+        })
+        </script>
+    </body>
+</html>
